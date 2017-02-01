@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{css/bootstrap.min.css}"/>
+    <script src="../static/js/jquery-1.9.1.js"></script>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Gestion des Salles</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li th:classappend="${page == 'home' ? 'active' : ''}"><a href="#" th:href="@{/home}">Home</a></li>
+            </ul>
+          <ul class="nav navbar-nav navbar-right">
+                <li th:if="${#authorization.expression('!isAuthenticated()')}"><a href="/login" th:href="@{/signin}">Espace membre</a></li>
+                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    
+    </div>
+		<h3>Emplois des Temps</h3>
+		
+		<div class="col-md-6">
+	<div class="panel panel-info">
+	<div class="panel-heading">Emplois de temps</div>
+	<div class="panel-body"> 
+		<form th:action="@{/rechercheEmplois}" method="post">
+				<div class="form-group">
+					<label class="control-label">Classe</label>
+					<input class="form-control" type="text" name="username"/>
+				<div>
+					<input class="btn btn-primary" type="submit" value="Se connecter"/>
+				</div>
+				</div>
+		</form>
+		</div>
+		</div>
+		</div>
+    		
+</body>
+</html>

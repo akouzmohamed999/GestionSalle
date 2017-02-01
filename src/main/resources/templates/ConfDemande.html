@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{css/bootstrap.min.css}"/>
+    <script src="../static/js/jquery-1.9.1.js"></script>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home">GESION SALLE</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li th:classappend="${page == 'home' ? 'active' : ''}"><a href="#" th:href="@{/home}">Home</a></li>
+            </ul>
+          <ul class="nav navbar-nav navbar-right">
+                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/login" th:href="@{/SecrView}">Espace Responsable</a></li>
+                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout" th:href="@{/logout}">Logout</a></li>
+                
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    </div>
+   
+       <div class="panel panel-info" style="margin-top: 60px;">
+   	<div class="panel-heading">Salles</div>
+   	<div class="panel-body">
+    		<table border="1" class="table table-striped">
+    			<tr>
+    				<th>ID  Salle</th>
+    				<th>Departement </th>
+    				<th>Type</th>	
+    				<th>Choix</th>
+    			</tr>
+		    		<tr th:each="salle : ${salles}">
+		      			<td th:text="${salle.id}"></td>
+		      			<td th:text="${salle.departement}"></td>
+		    		    <td th:text="${salle.type}"></td>
+		    		    <td><a th:href="@{/ConfirmerDemande/{id}(id=${salle.id})}" role="button" class="btn btn-primary">Choisir</a></td>	   				     
+		   			 	</tr>
+    		</table>
+    </div>
+    </div>
+</body>
+</html>

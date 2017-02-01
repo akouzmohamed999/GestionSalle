@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{css/bootstrap.min.css}"/>
+    <script src="../static/js/jquery-1.9.1.js"></script>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home">GESION SALLE</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li th:classappend="${page == 'home' ? 'active' : ''}"><a href="#" th:href="@{/home}">Home</a></li>
+            </ul>
+          <ul class="nav navbar-nav navbar-right">
+                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/login" th:href="@{/SecrView}">Espace Secretaire</a></li>
+                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout" th:href="@{/logout}">Logout</a></li>
+                
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    </div>
+    <div class="panel panel-info" style="margin-top: 60px;">
+   	<div class="panel-heading">Demandes</div>
+   	<div class="panel-body">
+    		<table border="1" class="table table-striped">
+    			<tr>
+    				<th>Numero demande</th>
+    				<th>date demande</th>
+    				<th>etat demande</th>	
+    				<th>Type salle</th>
+    				<th colspan="2">Options</th>
+    			</tr>
+		    		<tr th:each="demande : ${demandes}">
+		      			<td th:text="${demande.numdemande}"></td>
+		    		    <td th:text="${demande.datesouhaite}"></td>
+					     <td th:text="${demande.etat}"></td>
+		   			     <td th:text="${demande.typesalle}"></td>		   				     
+	   				     <td><a th:href="@{/approverDemande/{id}(id=${demande.numdemande})}" role="button" class="btn btn-primary">Approver</a></td>		   				     
+	   				     <td><a th:href="@{/SupprimerDemande/{id}(id=${demande.numdemande})}" role="button" class="btn btn-danger" >Supprimer</a></td>		   				     
+		   			 	</tr>
+    		</table>
+    </div>
+    </div>
+</body>
+</html>
